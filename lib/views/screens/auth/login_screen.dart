@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shorts/utilities/colors.dart';
+import 'package:shorts/views/screens/auth/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -13,13 +14,17 @@ class LoginScreen extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(
-              'Welcome...',
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.w300,
-                fontFamily: 'RobotoMono',
-              ),
+            Column(
+              children: [
+                Text(
+                  'Welcome...',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'RobotoMono',
+                  ),
+                ),
+              ],
             ),
           ]),
           SizedBox(
@@ -91,12 +96,17 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(width: 5),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return SignupScreen();
+                  }));
+                },
                 child: Text(
                   "Register .",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    fontSize: 14,
+                    fontSize: 16,
                     color: Colors.red,
                   ),
                 ),

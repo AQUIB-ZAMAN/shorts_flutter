@@ -56,6 +56,8 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              obscureText: true,
+              obscuringCharacter: '*',
               controller: password,
               keyboardType: TextInputType.visiblePassword,
               textAlign: TextAlign.center,

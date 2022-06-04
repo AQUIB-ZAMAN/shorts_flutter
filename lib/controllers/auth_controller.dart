@@ -13,10 +13,30 @@ import '../views/screens/home_screen.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
+  //Rx implies the user can change them and these changes are reflected instantaneously
   Rx<File?>? _pickedImage = null;
 
+  //save the state of the user
+  late Rx<User?> user;
+  @override
+  // onReady() -> automaticalyy executed when the app is launched and ready to start
+  void onReady() {
+    super.onReady();
+    user.bindStream(auth.authStateChanges());
+    ever(user, setInitialState());
+  }
+
+  setInitialState() {
+    if (user == null) {
+      Get.offAll(LoginScreen());
+    } else {
+      Get.offAll(HomeScreen());
+    }
+  }
+
   Stream<User?> get authChanges => auth.authStateChanges();
-  User? get user => auth.currentUser;
+
+  // User? get user => auth.currentUser;
 
   File? get profilePhoto => _pickedImage?.value ?? null;
 

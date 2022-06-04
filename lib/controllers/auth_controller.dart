@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shorts/models/user.dart' as model;
+import 'package:shorts/views/screens/auth/login_screen.dart';
 
 import '../utilities/const.dart';
+import '../views/screens/home_screen.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -18,10 +20,14 @@ class AuthController extends GetxController {
 
   File? get profilePhoto => _pickedImage?.value ?? null;
 
+  File? setProfilepic() => _pickedImage = null;
+
   //function to pick image from the gallery
   void pickImage() async {
     final XFile? pickedImage = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 60);
+
+    // check if user has picked an image or not
     if (pickedImage != null) {
       _pickedImage = Rx<File?>(File(pickedImage.path));
       Get.snackbar(
@@ -77,6 +83,7 @@ class AuthController extends GetxController {
             .collection('users')
             .doc(auth.currentUser!.uid)
             .set(user.toJson());
+        Get.offAll(LoginScreen());
       } else {
         Get.snackbar(
           'Error Creating Account',
@@ -95,6 +102,43 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar(
         'Error creating account',
+        e.toString(),
+        snackPosition: SnackPosition.TOP,
+        borderRadius: 10,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        margin: EdgeInsets.all(10),
+        duration: Duration(seconds: 5),
+        isDismissible: true,
+        dismissDirection: DismissDirection.horizontal,
+        forwardAnimationCurve: Curves.easeOutBack,
+      );
+    }
+  }
+
+  void loginUser(String email, String password) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+        Get.offAll(HomeScreen());
+      } else {
+        Get.snackbar(
+          'Error sigining in ',
+          'Please enter all the fields.',
+          snackPosition: SnackPosition.TOP,
+          borderRadius: 10,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          margin: EdgeInsets.all(10),
+          duration: Duration(seconds: 5),
+          isDismissible: true,
+          dismissDirection: DismissDirection.horizontal,
+          forwardAnimationCurve: Curves.easeOutBack,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error signing into account',
         e.toString(),
         snackPosition: SnackPosition.TOP,
         borderRadius: 10,

@@ -1,12 +1,25 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
 import 'package:shorts/utilities/const.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController username = TextEditingController();
+
   final TextEditingController email = TextEditingController();
+
   final TextEditingController password = TextEditingController();
+
+  void initState() {
+    authController.setProfilepic();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,19 +39,35 @@ class SignupScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     CircleAvatar(
-                      radius: 100,
-                      backgroundImage: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU'),
-                      backgroundColor: Colors.blue,
-                    ),
+                        radius: 100,
+                        // backgroundImage: authController.profilePhoto == null
+                        //     ? NetworkImage(
+                        //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU')
+                        //     : null,
+                        backgroundColor: Colors.blue,
+                        child: CircleAvatar(
+                            radius: 98,
+                            child: ClipOval(
+                              child: (authController.profilePhoto != null)
+                                  ? Image.file(
+                                      authController.profilePhoto!,
+                                      width: 196,
+                                      height: 196,
+                                      fit: BoxFit.contain,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/defaultProfilePic.jpg'),
+                            ))),
                     Positioned(
                       bottom: -10,
                       left: 150,
                       child: IconButton(
-                        color: Colors.red,
-                        icon: Icon(Icons.add_a_photo),
-                        onPressed: () => authController.pickImage(),
-                      ),
+                          color: Colors.red,
+                          icon: Icon(Icons.add_a_photo),
+                          onPressed: () {
+                            authController.pickImage();
+                            setState(() {});
+                          }),
                     ),
                   ],
                 ),

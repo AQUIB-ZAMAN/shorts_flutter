@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shorts/utilities/const.dart';
 import 'package:shorts/views/screens/auth/signup_screen.dart';
+import 'package:shorts/views/screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  final TextEditingController email = TextEditingController();
+
+  final TextEditingController password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +38,7 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              controller: email,
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
               maxLines: 1,
@@ -50,6 +56,7 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              controller: password,
               keyboardType: TextInputType.visiblePassword,
               textAlign: TextAlign.center,
               maxLines: 1,
@@ -66,7 +73,9 @@ class LoginScreen extends StatelessWidget {
           ),
           SizedBox(height: 40),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              authController.loginUser(email.text, password.text);
+            },
             child: Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,

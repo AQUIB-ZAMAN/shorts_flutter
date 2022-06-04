@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:shorts/utilities/colors.dart';
+import 'package:shorts/utilities/const.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({Key? key}) : super(key: key);
-
+  final TextEditingController username = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,7 @@ class SignupScreen extends StatelessWidget {
                       child: IconButton(
                         color: Colors.red,
                         icon: Icon(Icons.add_a_photo),
-                        onPressed: () {},
+                        onPressed: () => authController.pickImage(),
                       ),
                     ),
                   ],
@@ -43,6 +46,7 @@ class SignupScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: username,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.center,
                   maxLines: 1,
@@ -60,6 +64,7 @@ class SignupScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: email,
                   keyboardType: TextInputType.emailAddress,
                   textAlign: TextAlign.center,
                   maxLines: 1,
@@ -77,6 +82,7 @@ class SignupScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: password,
                   keyboardType: TextInputType.visiblePassword,
                   textAlign: TextAlign.center,
                   maxLines: 1,
@@ -95,7 +101,8 @@ class SignupScreen extends StatelessWidget {
                 height: 30,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () => authController.registerUser(username.text,
+                    email.text, password.text, authController.profilePhoto),
                 child: Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,

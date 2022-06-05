@@ -23,7 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: pages[pageIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: backgroundColor,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.transparent,
         currentIndex: pageIndex,
         onTap: (index) {
           setState(() {
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.add_box_rounded,
+              Icons.add_circle_outline_rounded,
               size: 30,
             ),
             label: 'Add Video',
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.tag_faces_outlined,
+              Icons.account_circle_rounded,
               size: 30,
             ),
             label: 'Profile',

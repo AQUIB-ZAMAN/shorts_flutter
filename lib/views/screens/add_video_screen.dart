@@ -34,7 +34,7 @@ class AddVideoScreen extends StatelessWidget {
                     Text(
                       'Gallery',
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
@@ -50,7 +50,7 @@ class AddVideoScreen extends StatelessWidget {
                     Text(
                       'Camera',
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
@@ -66,7 +66,7 @@ class AddVideoScreen extends StatelessWidget {
                     Text(
                       'Cancel',
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
@@ -94,7 +94,7 @@ class AddVideoScreen extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: Colors.red,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(5),
             ),
           ),
           onTap: () => showDialogOption(context),

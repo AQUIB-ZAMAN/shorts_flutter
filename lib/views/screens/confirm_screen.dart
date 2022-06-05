@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,13 @@ class ConfirmScreen extends StatefulWidget {
 class _ConfirmScreenState extends State<ConfirmScreen> {
   late VideoPlayerController controller;
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -34,9 +42,67 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Confirm video'),
+        body: SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.red,
+                ),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 1.5,
+                child: VideoPlayer(controller),
+              ),
+            ),
+            SizedBox(height: 30),
+            TextField(
+              textAlign: TextAlign.left,
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.audiotrack),
+                  hintText: 'Song Name',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              textAlign: TextAlign.left,
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.closed_caption),
+                hintText: 'Caption',
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Share'),
+              style: ElevatedButton.styleFrom(
+                textStyle: TextStyle(fontSize: 18),
+                primary: Colors.red,
+              ),
+            )
+          ],
+        ),
       ),
-    );
+    ));
   }
 }

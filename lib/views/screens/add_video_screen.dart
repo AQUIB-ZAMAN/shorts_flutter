@@ -34,7 +34,7 @@ class AddVideoScreen extends StatelessWidget {
                     Text(
                       'Gallery',
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
@@ -50,7 +50,7 @@ class AddVideoScreen extends StatelessWidget {
                     Text(
                       'Camera',
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
@@ -66,7 +66,7 @@ class AddVideoScreen extends StatelessWidget {
                     Text(
                       'Cancel',
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
@@ -86,7 +86,7 @@ class AddVideoScreen extends StatelessWidget {
             width: 190,
             height: 50,
             child: Text(
-              'Add Video,',
+              'Add Video.',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,

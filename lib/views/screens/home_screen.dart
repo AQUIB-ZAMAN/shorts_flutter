@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shorts/utilities/const.dart';
 import 'package:shorts/views/screens/add_video_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,34 +9,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late List<Widget> pages = [];
-  late int pageIndex;
-  void initState() {
-    pageIndex = 0;
-    pages = [
-      Text('Home'),
-      Text('Home'),
-      AddVideoScreen(),
-      Text('Home'),
-      Text('Home'),
-    ];
-  }
+  late List<Widget> pages = [
+    Text('Home'),
+    Text('Home'),
+    AddVideoScreen(),
+    Text('Home'),
+    Text('Home'),
+  ];
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[pageIndex],
-      bottomNavigationBar: CupertinoTabBar(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: backgroundColor,
         currentIndex: pageIndex,
         onTap: (index) {
           setState(() {
             pageIndex = index;
           });
         },
-        backgroundColor: Colors.transparent,
-        activeColor: Colors.red,
-        inactiveColor: Colors.white,
-        height: 0,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.white,
+        elevation: 0,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -56,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.add_box_rounded,
               size: 30,
             ),
-            label: 'Home',
+            label: 'Add Video',
           ),
           BottomNavigationBarItem(
             icon: Icon(

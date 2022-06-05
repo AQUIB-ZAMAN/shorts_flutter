@@ -22,11 +22,12 @@ class AuthController extends GetxController {
   // onReady() -> automaticalyy executed when the app is launched and ready to start
   void onReady() {
     super.onReady();
+    user = Rx<User?>(auth.currentUser);
     user.bindStream(auth.authStateChanges());
-    ever(user, setInitialState());
+    ever(user, setInitialState);
   }
 
-  setInitialState() {
+  setInitialState(User? user) {
     if (user == null) {
       Get.offAll(LoginScreen());
     } else {
@@ -103,7 +104,6 @@ class AuthController extends GetxController {
             .collection('users')
             .doc(auth.currentUser!.uid)
             .set(user.toJson());
-        Get.offAll(LoginScreen());
       } else {
         Get.snackbar(
           'Error Creating Account',

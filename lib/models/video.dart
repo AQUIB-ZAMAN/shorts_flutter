@@ -11,7 +11,7 @@ class Video {
   final int shareCount;
   final String videoUrl;
   final String thumbnail;
-  final profilePhoto;
+  String? profilePhoto;
 
   Video({
     required this.username,
@@ -24,7 +24,7 @@ class Video {
     required this.caption,
     required this.videoUrl,
     required this.thumbnail,
-    required this.profilePhoto,
+    this.profilePhoto,
   });
 
   Map<String, dynamic> toJson() {

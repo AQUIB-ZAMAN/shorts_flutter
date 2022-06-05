@@ -1,7 +1,8 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shorts/controllers/upload_video_controller.dart';
 import 'package:video_player/video_player.dart';
 
 class ConfirmScreen extends StatefulWidget {
@@ -19,6 +20,9 @@ class ConfirmScreen extends StatefulWidget {
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
   late VideoPlayerController controller;
+  final uploadVideoController = Get.put(UploadVideoController());
+  late TextEditingController songName;
+  late TextEditingController caption;
   @override
   void dispose() {
     // TODO: implement dispose
@@ -66,6 +70,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
             ),
             SizedBox(height: 30),
             TextField(
+              controller: songName,
               textAlign: TextAlign.left,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
@@ -78,6 +83,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
             ),
             SizedBox(height: 10),
             TextField(
+              controller: caption,
               textAlign: TextAlign.left,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
@@ -93,7 +99,8 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               height: 20,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => uploadVideoController.uploadVideo(
+                  songName.text, caption.text, widget.videoPath),
               child: Text('Share'),
               style: ElevatedButton.styleFrom(
                 textStyle: TextStyle(fontSize: 18),

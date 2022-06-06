@@ -21,8 +21,8 @@ class ConfirmScreen extends StatefulWidget {
 class _ConfirmScreenState extends State<ConfirmScreen> {
   late VideoPlayerController controller;
   final uploadVideoController = Get.put(UploadVideoController());
-  late TextEditingController songName;
-  late TextEditingController caption;
+  final TextEditingController songName = TextEditingController();
+  final TextEditingController caption = TextEditingController();
   @override
   void dispose() {
     // TODO: implement dispose

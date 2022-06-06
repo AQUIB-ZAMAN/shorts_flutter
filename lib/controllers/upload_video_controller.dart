@@ -13,16 +13,16 @@ import '../utilities/const.dart';
 class UploadVideoController {
   //function to compress video before storing
   compressVideo(String videoPath) async {
-    MediaInfo? compressedVideo = await VideoCompress.compressVideo(videoPath,
+    final compressedVideo = await VideoCompress.compressVideo(videoPath,
         quality: VideoQuality.MediumQuality);
     return compressedVideo!.file;
   }
 
   //uploading video to storage
 
-  uploadVideoToStorage(String id, String videoPath) async {
+  Future<String> uploadVideoToStorage(String id, String videoPath) async {
     Reference ref = firebaseStorage.ref('videos').child(id);
-    UploadTask uploadTask = ref.putFile(File(compressVideo(videoPath)));
+    UploadTask uploadTask = ref.putFile(await compressVideo(videoPath));
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
@@ -34,9 +34,9 @@ class UploadVideoController {
     return thumbnail;
   }
 
-  uploadImageToStorage(String id, String videoPath) async {
+  Future<String> uploadImageToStorage(String id, String videoPath) async {
     Reference ref = firebaseStorage.ref('thumbnails').child(id);
-    UploadTask uploadTask = ref.putFile(getThumbnail(videoPath));
+    UploadTask uploadTask = ref.putFile(await getThumbnail(videoPath));
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
@@ -54,8 +54,9 @@ class UploadVideoController {
       var allDocs = await firestore.collection('videos').get();
 
       int length = allDocs.docs.length;
-      var videoUrl = uploadVideoToStorage('videos $length', videoPath);
-      var thumbnailUrl = uploadImageToStorage('videos $length', videoPath);
+      var videoUrl = await uploadVideoToStorage('videos $length', videoPath);
+      var thumbnailUrl =
+          await uploadImageToStorage('videos $length', videoPath);
 
       //save video to firebase db
       Video video = Video(
@@ -69,7 +70,7 @@ class UploadVideoController {
         caption: caption,
         videoUrl: videoUrl,
         thumbnail: thumbnailUrl,
-        profilePhoto: (userDoc.data() as Map<String, dynamic>)['profilePhoto'],
+        profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
       );
 
       await firestore

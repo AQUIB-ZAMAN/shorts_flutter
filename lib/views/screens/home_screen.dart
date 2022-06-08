@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shorts/controllers/auth_controller.dart';
 import 'package:shorts/utilities/const.dart';
 import 'package:shorts/views/screens/add_video_screen.dart';
+import 'package:shorts/views/screens/profile_screen.dart';
 import 'package:shorts/views/screens/search_screen.dart';
 import 'package:shorts/views/screens/video_screen.dart';
 
@@ -16,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     SearchScreen(),
     AddVideoScreen(),
     Text('Home'),
-    Text('Home'),
+    ProfileScreen(uid: authController.getUser!.uid),
   ];
   int pageIndex = 0;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shorts/controllers/comment_controller.dart';
 import 'package:shorts/controllers/video_controller.dart';
 import 'package:shorts/views/screens/comment_screen.dart';
 import 'package:shorts/views/screens/widgets/circle_animation.dart';
@@ -47,6 +48,8 @@ class _VideoScreenState extends State<VideoScreen> {
           ),
           itemBuilder: ((context, index) {
             final data = videoController.videoList[index];
+            final commentController = CommentController();
+            commentController.updatePostId(data.id);
             return Stack(
               children: [
                 VideoPlayerItem(videoUrl: data.videoUrl),
@@ -148,7 +151,8 @@ class _VideoScreenState extends State<VideoScreen> {
                                       size: 40,
                                     ),
                                   ),
-                                  Text(data.commentCount.toString()),
+                                  Text(
+                                      '${commentController.commentList.length}'),
                                 ],
                               ),
                               Column(

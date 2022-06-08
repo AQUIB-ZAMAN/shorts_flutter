@@ -38,7 +38,7 @@ class AuthController extends GetxController {
 
   Stream<User?> get authChanges => auth.authStateChanges();
 
-  // User? get user => auth.currentUser;
+  User? get getUser => auth.currentUser;
 
   File? get profilePhoto => _pickedImage?.value ?? null;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shorts/controllers/video_controller.dart';
+import 'package:shorts/views/screens/comment_screen.dart';
 import 'package:shorts/views/screens/widgets/circle_animation.dart';
 import 'package:shorts/views/screens/widgets/videoplayeritem.dart';
 
@@ -108,18 +109,24 @@ class _VideoScreenState extends State<VideoScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.grey,
-                              ),
                               Column(
                                 children: [
                                   InkWell(
-                                    child: Icon(
-                                      Icons.thumb_up_alt,
-                                      color: Colors.red,
-                                      size: 40,
-                                    ),
+                                    onTap: () {
+                                      videoController.likeVideo(data.id);
+                                    },
+                                    child: (data.likes
+                                            .contains(auth.currentUser!.uid))
+                                        ? Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                            size: 40,
+                                          )
+                                        : Icon(
+                                            Icons.favorite,
+                                            color: Colors.white,
+                                            size: 40,
+                                          ),
                                   ),
                                   Text(data.likes.length.toString()),
                                 ],
@@ -127,6 +134,14 @@ class _VideoScreenState extends State<VideoScreen> {
                               Column(
                                 children: [
                                   InkWell(
+                                    onTap: () => {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                        return CommentScreen(
+                                            postId: data.id,
+                                            profilePic: data.profilePhoto);
+                                      }))
+                                    },
                                     child: Icon(
                                       Icons.comment,
                                       color: Colors.white,

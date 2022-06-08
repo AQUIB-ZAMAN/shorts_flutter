@@ -34,9 +34,9 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    setState(() {
-      controller = VideoPlayerController.file(widget.videoFile);
-    });
+
+    controller = VideoPlayerController.file(widget.videoFile);
+
     controller.initialize();
     controller.play();
     controller.setVolume(1);

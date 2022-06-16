@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shorts/controllers/comment_controller.dart';
 import 'package:shorts/controllers/video_controller.dart';
 import 'package:shorts/views/screens/comment_screen.dart';
+import 'package:shorts/views/screens/profile_screen.dart';
 import 'package:shorts/views/screens/widgets/circle_animation.dart';
 import 'package:shorts/views/screens/widgets/videoplayeritem.dart';
 
@@ -48,7 +49,7 @@ class _VideoScreenState extends State<VideoScreen> {
           ),
           itemBuilder: ((context, index) {
             final data = videoController.videoList[index];
-            final commentController = CommentController();
+            final commentController = Get.put(CommentController());
             commentController.updatePostId(data.id);
             return Stack(
               children: [
@@ -137,6 +138,11 @@ class _VideoScreenState extends State<VideoScreen> {
                               Column(
                                 children: [
                                   InkWell(
+                                    child: Icon(
+                                      Icons.comment,
+                                      color: Colors.white,
+                                      size: 40,
+                                    ),
                                     onTap: () => {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(builder: (context) {
@@ -145,14 +151,10 @@ class _VideoScreenState extends State<VideoScreen> {
                                             profilePic: data.profilePhoto);
                                       }))
                                     },
-                                    child: Icon(
-                                      Icons.comment,
-                                      color: Colors.white,
-                                      size: 40,
-                                    ),
                                   ),
                                   Text(
-                                      '${commentController.commentList.length}'),
+                                    data.commentCount.toString(),
+                                  ),
                                 ],
                               ),
                               Column(
@@ -167,28 +169,33 @@ class _VideoScreenState extends State<VideoScreen> {
                                   Text(data.shareCount.toString()),
                                 ],
                               ),
-                              Stack(children: [
-                                CircleAnimation(child: buildMusicAlbum()),
-                                Positioned(
-                                  left: 3.1,
-                                  top: 3,
-                                  child: Container(
-                                    // ignore: sort_child_properties_last
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(24),
-                                      child: (data.profilePhoto != null)
-                                          ? Image.network(
-                                              data.profilePhoto!,
-                                              fit: BoxFit.cover,
-                                            )
-                                          : Image.asset(
-                                              'assets/images/defaultProfilePic.jpg'),
+                              InkWell(
+                                onTap: () {
+                                  Get.to(ProfileScreen(uid: data.uid));
+                                },
+                                child: Stack(children: [
+                                  CircleAnimation(child: buildMusicAlbum()),
+                                  Positioned(
+                                    left: 3.1,
+                                    top: 3,
+                                    child: Container(
+                                      // ignore: sort_child_properties_last
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(24),
+                                        child: (data.profilePhoto != null)
+                                            ? Image.network(
+                                                data.profilePhoto!,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.asset(
+                                                'assets/images/defaultProfilePic.jpg'),
+                                      ),
+                                      width: 50,
+                                      height: 50,
                                     ),
-                                    width: 50,
-                                    height: 50,
                                   ),
-                                ),
-                              ]),
+                                ]),
+                              ),
                             ],
                           ),
                         )

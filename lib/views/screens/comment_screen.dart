@@ -22,6 +22,7 @@ class CommentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     commentController.updatePostId(postId);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -31,6 +32,7 @@ class CommentScreen extends StatelessWidget {
             child: Column(children: [
               Expanded(
                 child: Obx(() {
+                  authController.profilePhoto;
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     physics: ClampingScrollPhysics(),
@@ -128,9 +130,9 @@ class CommentScreen extends StatelessWidget {
                   width: 40,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
-                    child: (profilePic != null)
+                    child: (commentController.currPp != null)
                         ? Image.network(
-                            profilePic!,
+                            commentController.currPp!,
                             fit: BoxFit.cover,
                           )
                         : Image.asset('assets/images/defaultProfilePic.jpg'),

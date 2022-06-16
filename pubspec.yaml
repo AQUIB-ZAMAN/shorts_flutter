@@ -37,6 +37,7 @@ dependencies:
   image_picker: ^0.8.5+3
   video_player: ^2.4.2
   timeago: ^3.2.2
+  cached_network_image: ^3.2.1
   video_compress: # 3.1.0
     git: https://github.com/jonataslaw/VideoCompress
 

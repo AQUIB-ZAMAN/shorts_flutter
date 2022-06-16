@@ -9,8 +9,8 @@ class SearchController extends GetxController {
 
   List<User> get searchedUsers => _seachedUsers.value;
 
-  searchUser(String typedUser) {
-    _seachedUsers.bindStream(firestore
+  searchUser(String typedUser) async {
+    _seachedUsers.bindStream(await firestore
         .collection('users')
         .where('name', isGreaterThanOrEqualTo: typedUser)
         .snapshots()

@@ -8,10 +8,18 @@ import '../models/comment.dart';
 class CommentController extends GetxController {
   final Rx<List<Comment>> _commentList = Rx<List<Comment>>([]);
   String postId = '';
+  String? currPp = '';
 
   updatePostId(String id) {
     postId = id;
     getComment();
+    getProfilePic();
+  }
+
+  getProfilePic() async {
+    var userDoc =
+        await firestore.collection('users').doc(auth.currentUser!.uid).get();
+    currPp = (userDoc.data() as Map<String, dynamic>)['profilePhoto'] as String;
   }
 
   getComment() async {
@@ -66,6 +74,13 @@ class CommentController extends GetxController {
           .collection('comments')
           .doc('comment $length')
           .set(comment.toJson());
+
+      //update commentCount for current post
+      DocumentSnapshot doc =
+          await firestore.collection('videos').doc(postId).get();
+      await firestore.collection('videos').doc(postId).update({
+        'commentCount': (doc.data()! as dynamic)['commentCount'] + 1,
+      });
     } catch (e) {
       // TODO
       Get.snackbar(
@@ -93,7 +108,7 @@ class CommentController extends GetxController {
         .doc(id)
         .get();
 
-    if (await ( doc.data() as Map<String, dynamic>)['likes'].contains(uid)) {
+    if (await (doc.data() as Map<String, dynamic>)['likes'].contains(uid)) {
       await firestore
           .collection('videos')
           .doc(postId)

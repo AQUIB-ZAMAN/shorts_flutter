@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[pageIndex],
+      
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.transparent,
@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      body: pages[pageIndex],
     );
   }
 }

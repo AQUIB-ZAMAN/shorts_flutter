@@ -40,7 +40,9 @@ class AuthController extends GetxController {
 
   User? get getUser => auth.currentUser;
 
-  File? get profilePhoto => _pickedImage?.value ?? null;
+  File? get profilePhoto {
+    return _pickedImage?.value ?? null;
+  }
 
   File? setProfilepic() => _pickedImage = null;
 
@@ -173,5 +175,9 @@ class AuthController extends GetxController {
         forwardAnimationCurve: Curves.easeOutBack,
       );
     }
+  }
+
+  void signOut() async {
+    await auth.signOut();
   }
 }
